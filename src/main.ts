@@ -4,11 +4,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app/app.component';
 
 import { environment } from './environments/environment';
+import { RouterModule } from '@angular/router';
+import { ROUTES } from './app/app-routes';
 
 if (environment.production) {
   enableProdMode();
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [importProvidersFrom(HttpClientModule)],
+  providers: [
+    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(RouterModule.forRoot(ROUTES)),
+  ],
 }).catch((err) => console.error(err));

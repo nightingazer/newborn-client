@@ -1,1 +1,3 @@
-<router-outlet></router-outlet>
+<div class="{{ themeFacade.theme$ | async }}-theme mat-app-background">
+  <router-outlet></router-outlet>
+</div>

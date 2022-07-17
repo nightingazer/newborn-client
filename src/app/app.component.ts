@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common'
-import { Component, Inject, InjectionToken, OnInit } from '@angular/core'
+import { Component, HostBinding, Inject, InjectionToken, OnInit } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { APP_METADATA } from '~core/constants'
 import { AppMetadata } from '~core/models'
 import packageInfo from '../../package.json'
+import { ThemeFacade } from './features/store'
 
 const appMetadata: AppMetadata = {
   name: packageInfo.name,
@@ -20,8 +21,9 @@ const appMetadata: AppMetadata = {
 export class AppComponent implements OnInit {
   title = ''
 
-  constructor(@Inject(APP_METADATA) private appMetadata: AppMetadata) {}
+  constructor(@Inject(APP_METADATA) private appMetadata: AppMetadata, public themeFacade: ThemeFacade) {}
   ngOnInit(): void {
     this.title = this.appMetadata.name
+    this.themeFacade.init()
   }
 }

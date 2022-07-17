@@ -1,9 +1,20 @@
+import { ModuleWithProviders } from '@angular/core'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const STORE_MODULES: any[] = [
+  StoreDevtoolsModule.instrument({
+    maxAge: 25,
+    autoPause: true,
+  }),
+]
+
 export const environment = {
   production: false,
+  STORE_MODULES,
 }
 
 /*

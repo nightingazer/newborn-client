@@ -1,0 +1,16 @@
+@use '@angular/material' as mat;
+@import './base.scss';
+
+$pink-dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+      warn: $warn,
+    ),
+  )
+);
+
+body {
+  @include mat.all-component-themes($pink-dark-theme);
+}

@@ -24,7 +24,29 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss",
+              {
+                "input": "src/themes/deep-purple/dark-theme.scss",
+                "bundleName": "deep-purple-dark",
+                "inject": false
+              },
+              {
+                "input": "src/themes/deep-purple/light-theme.scss",
+                "bundleName": "deep-purple-light",
+                "inject": false
+              },
+              {
+                "input": "src/themes/pink/dark-theme.scss",
+                "bundleName": "pink-dark",
+                "inject": false
+              },
+              {
+                "input": "src/themes/pink/light-theme.scss",
+                "bundleName": "pink-light",
+                "inject": false
+              }
+            ],
             "scripts": []
           },
           "configurations": {

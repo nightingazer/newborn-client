@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core'
 import { Store } from '@ngrx/store'
 import * as ACTIONS from './theme.actions'
-import { selectTheme } from './theme.selectors'
+import { ETheme, EThemeMode } from './theme.reducer'
+import { selectTheme, selectThemeMode } from './theme.selectors'
 
 @Injectable({ providedIn: 'root' })
 export class ThemeFacade {
   theme$ = this.store$.select(selectTheme)
+  mode$ = this.store$.select(selectThemeMode)
 
   constructor(private store$: Store) {}
 
@@ -13,7 +15,15 @@ export class ThemeFacade {
     this.store$.dispatch(ACTIONS.init())
   }
 
-  toggleTheme(): void {
-    this.store$.dispatch(ACTIONS.toggleTheme())
+  toggleMode(): void {
+    this.store$.dispatch(ACTIONS.toggleMode())
+  }
+
+  setMode(mode: EThemeMode): void {
+    this.store$.dispatch(ACTIONS.setMode({ mode }))
+  }
+
+  setTheme(theme: ETheme): void {
+    this.store$.dispatch(ACTIONS.setTheme({ theme }))
   }
 }

@@ -1,0 +1,77 @@
+<div class="wrapper">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <div>
+        <button
+          mat-icon-button
+          (click)="sideNav.toggle()">
+          <mat-icon> menu </mat-icon>
+        </button>
+        <span>{{ metadata.name | uppercase }}</span>
+      </div>
+      <div>
+        <button
+          mat-button
+          [matMenuTriggerFor]="themeMenu"
+          [matTooltip]="'navbar.chooseThemeTooltip' | translate">
+          {{ currentTheme | async | titlecase }}
+          <mat-icon>arrow_drop_down</mat-icon>
+        </button>
+        <mat-menu #themeMenu>
+          <button
+            mat-menu-item
+            *ngFor="let theme of themes"
+            (click)="setTheme(ETheme[theme])">
+            {{ theme.replace('_', ' ') | titlecase }}
+          </button>
+        </mat-menu>
+        <button
+          mat-icon-button
+          (click)="toggleMode()"
+          [matTooltip]="'navbar.toggleThemeModeTooltip' | translate">
+          <mat-icon>
+            {{ (currentMode | async) === EThemeMode.DARK ? 'dark_mode' : 'light_mode' }}
+          </mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="langMenu">
+          <mat-icon> translate </mat-icon>
+        </button>
+        <mat-menu #langMenu>
+          <button
+            mat-menu-item
+            *ngFor="let lang of languages"
+            (click)="changeLanguage(lang.code)">
+            <mat-chip>{{ lang.code }}</mat-chip>
+            {{ lang.name }}
+          </button>
+        </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav
+      #sideNav
+      mode="side">
+      <mat-nav-list>
+        <a
+          mat-list-item
+          href="#"
+          >Link 1</a
+        >
+        <a
+          mat-list-item
+          href="#"
+          >Link 2</a
+        >
+        <a
+          mat-list-item
+          href="#"
+          >Link 3</a
+        >
+      </mat-nav-list></mat-sidenav
+    >
+    <ng-content></ng-content>
+  </mat-sidenav-container>
+</div>

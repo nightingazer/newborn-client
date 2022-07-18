@@ -1,1 +1,6 @@
-{}
+{
+  "navbar": {
+    "chooseThemeTooltip": "",
+    "toggleThemeModeTooltip": ""
+  }
+}

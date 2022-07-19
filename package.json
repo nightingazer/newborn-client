@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "prepare": "husky install",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "extract-translations": "ngx-translate-extract --input ./src --output ./src/assets/i18n/*.json --clean --sort --format namespaced-json --marker _"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,8 @@
     "@ngrx/effects": "14.0.2",
     "@ngrx/store": "^14.0.2",
     "@ngrx/store-devtools": "^14.0.2",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
@@ -39,6 +42,8 @@
     "@angular-eslint/template-parser": "14.0.2",
     "@angular/cli": "~14.0.5",
     "@angular/compiler-cli": "^14.0.0",
+    "@bartholomej/ngx-translate-extract": "^8.0.2",
+    "@biesbjerg/ngx-translate-extract-marker": "^1.0.0",
     "@types/jasmine": "~4.0.0",
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",

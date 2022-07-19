@@ -11,6 +11,8 @@ import { CommonModule } from '@angular/common'
 export class HomeComponent implements OnInit {
   constructor() {}
 
+  arr = new Array(100)
+
   ngOnInit(): void {
     return
   }

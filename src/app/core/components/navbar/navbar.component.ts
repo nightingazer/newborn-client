@@ -9,13 +9,14 @@ import { MatChipsModule } from '@angular/material/chips'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatListModule } from '@angular/material/list'
 
-import { map, Subscription } from 'rxjs'
+import { filter, map, merge, mergeMap, Subscription } from 'rxjs'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 
 import { APP_LANGUAGES, APP_METADATA } from '~core/constants'
 import { AppMetadata, ELangCodes as ELangCode, ILanguage } from '~core/models'
 import { ETheme, EThemeMode } from 'src/app/features/store/theme/theme.reducer'
 import { ThemeFacade } from 'src/app/features/store'
+import { ActivatedRoute, Data, NavigationEnd, Router } from '@angular/router'
 
 @Component({
   selector: 'app-navbar',
@@ -44,19 +45,35 @@ export class NavbarComponent implements OnInit {
   currentTheme = this.themeFacade.theme$.pipe(map((theme) => theme.replace('-', ' ')))
   currentMode = this.themeFacade.mode$
 
-  subscriptions: Subscription[] = []
+  showNavbar = false
+
+  private subscriptions: Subscription[] = []
 
   constructor(
     @Inject(APP_METADATA) public metadata: AppMetadata,
     @Inject(APP_LANGUAGES) public languages: ILanguage[],
     private themeFacade: ThemeFacade,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.themes = Object.keys(ETheme) as (keyof typeof ETheme)[]
   }
 
   ngOnInit(): void {
-    return
+    const routerDataSub = this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => {
+          let route = this.route
+          while (route.firstChild) {
+            route = route.firstChild
+          }
+          return route
+        }),
+        mergeMap((route) => route.data)
+      )
+      .subscribe((data) => this.setVisible(data))
   }
 
   setTheme(theme: ETheme): void {
@@ -69,5 +86,13 @@ export class NavbarComponent implements OnInit {
 
   changeLanguage(code: ELangCode): void {
     this.translate.use(code.toString())
+  }
+
+  private setVisible(data: Data) {
+    if (data['navbar'] !== false) {
+      this.showNavbar = true
+    } else {
+      this.showNavbar = false
+    }
   }
 }
